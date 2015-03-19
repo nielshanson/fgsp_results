@@ -1,2 +1,3 @@
-# fgsp_results
-Performance results for FragGeneScan+
+# FragGeneScan+ Results
+
+Performance results for FragGeneScan+ experiments. See [gfsp_results.md](gfsp_results.md).

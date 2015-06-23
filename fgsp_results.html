@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="Niels Hanson" />
+<meta name="author" content="Dongjae Kim, Aria S. Hahn, Shang-Ju Wu, Niels W. Hanson, Kishori M. Konwar, Steven J. Hallam" />
 
 <meta name="date" content="2015-03-18" />
 
@@ -63,31 +63,44 @@ img {
 
 <div id="header">
 <h1 class="title">FragGeneScan+ Results</h1>
-<h4 class="author"><em>Niels Hanson</em></h4>
+<h4 class="author"><em>Dongjae Kim, Aria S. Hahn, Shang-Ju Wu, Niels W. Hanson, Kishori M. Konwar, Steven J. Hallam</em></h4>
 <h4 class="date"><em>March 18, 2015</em></h4>
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#preamble"><span class="toc-section-number">1</span> Preamble</a></li>
-<li><a href="#fraggenescan-performance"><span class="toc-section-number">2</span> FragGeneScan+ Performance</a></li>
+<li><a href="#contents"><span class="toc-section-number">1</span> Contents</a></li>
+<li><a href="#preamble"><span class="toc-section-number">2</span> Preamble</a></li>
+<li><a href="#fraggenescan-performance"><span class="toc-section-number">3</span> FragGeneScan+ Performance</a></li>
 </ul>
 </div>
 
-<div id="preamble" class="section level1">
-<h1><span class="header-section-number">1</span> Preamble</h1>
+<p>This document summarizes the performance evaluation of FragGeneScan+, a multithreaded implementation of the <a href="http://omics.informatics.indiana.edu/FragGeneScan/">FragGeneScan</a> fragmented open reading frame (ORF) finding software. Full details can be found in the manuscript:</p>
 <ul>
-<li>load some packages</li>
+<li>Dongjae Kim, Aria S. Hahn, Shang-Ju Wu, Niels W. Hanson, Kishori M. Konwar, Steven J. Hallam. FragGeneScan+: high-throughput short-read gene prediction, Proceedings of the 2015 IEEE Conference on Computational Intelligence in Bioinformatics and Computational Biology (CIBCB 2015), Niagara Falls, Canada, August 12-15, 2015.</li>
+</ul>
+<div id="contents" class="section level1">
+<h1><span class="header-section-number">1</span> Contents</h1>
+<p>This document references the following data files:</p>
+<ul>
+<li><a href="data/data/FGS+Results.csv">data/</a>: Data for FGS+ runtmies</li>
+</ul>
+<p>Raw sequence data used in the performance simulations can be found <a href="https://www.dropbox.com/sh/5brhvcg0mi7uwor/AACL2RNWEgHsYtRhjccDHd4Qa?dl=0">here</a></p>
+</div>
+<div id="preamble" class="section level1">
+<h1><span class="header-section-number">2</span> Preamble</h1>
+<ul>
+<li>Load required packages</li>
 </ul>
 <pre class="r"><code>library(ggplot2)
 library(reshape2)</code></pre>
 </div>
 <div id="fraggenescan-performance" class="section level1">
-<h1><span class="header-section-number">2</span> FragGeneScan+ Performance</h1>
+<h1><span class="header-section-number">3</span> FragGeneScan+ Performance</h1>
 <ul>
 <li>Modify and clean data set</li>
 </ul>
-<pre class="r"><code>df &lt;- read.table(&quot;fgsp_results.csv&quot;, header=T, sep=&quot;,&quot;)
+<pre class="r"><code>df &lt;- read.table(&quot;data/FGS+Results.csv&quot;, header=T, sep=&quot;,&quot;)
 names(df) &lt;- c(&quot;reads_millions&quot;, &quot;FGS&quot;, &quot;FGS+ (1 Thread)&quot;, &quot;FGS+ (16 Threads)&quot;)
 df.m &lt;- melt(df, id.var=(&quot;reads_millions&quot;), variable.name=&quot;Algorithm&quot;, value.name = &quot;time_min&quot;)
 df.m$Algorithm &lt;- factor(df.m$Algorithm, levels=c(&quot;FGS&quot;, &quot;FGS+ (1 Thread)&quot;, &quot;FGS+ (16 Threads)&quot;))</code></pre>
@@ -142,9 +155,6 @@ avg_fgsp_fgs_threaded_speedup &lt;- round(mean(df$FGS / df$`FGS+ (16 Threads)`),
 <li>Directly attributable to the algorithmic thread synonization</li>
 </ul></li>
 </ul>
-<div class="references">
-
-</div>
 </div>
 
 

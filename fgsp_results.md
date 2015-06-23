@@ -1,10 +1,22 @@
 # FragGeneScan+ Results
-Niels Hanson  
+Dongjae Kim, Aria S. Hahn, Shang-Ju Wu, Niels W. Hanson, Kishori M. Konwar, Steven J. Hallam  
 March 18, 2015  
+
+This document summarizes the performance evaluation of FragGeneScan+, a multithreaded implementation of the [FragGeneScan](http://omics.informatics.indiana.edu/FragGeneScan/) fragmented open reading frame (ORF) finding software. Full details can be found in the manuscript:
+
+* Dongjae Kim, Aria S. Hahn, Shang-Ju Wu, Niels W. Hanson, Kishori M. Konwar, Steven J. Hallam. FragGeneScan+: high-throughput short-read gene prediction, Proceedings of the 2015 IEEE Conference on Computational Intelligence in Bioinformatics and Computational Biology (CIBCB 2015), Niagara Falls, Canada, August 12-15, 2015.
+
+# Contents
+
+This document references the following data files:
+
+* [data/](data/data/FGS+Results.csv): Data for FGS+ runtmies
+
+Raw sequence data used in the performance simulations can be found [here](https://www.dropbox.com/sh/5brhvcg0mi7uwor/AACL2RNWEgHsYtRhjccDHd4Qa?dl=0)
 
 # Preamble
 
-* load some packages
+* Load required packages
 
 
 ```r
@@ -18,7 +30,7 @@ library(reshape2)
 
 
 ```r
-df <- read.table("fgsp_results.csv", header=T, sep=",")
+df <- read.table("data/FGS+Results.csv", header=T, sep=",")
 names(df) <- c("reads_millions", "FGS", "FGS+ (1 Thread)", "FGS+ (16 Threads)")
 df.m <- melt(df, id.var=("reads_millions"), variable.name="Algorithm", value.name = "time_min")
 df.m$Algorithm <- factor(df.m$Algorithm, levels=c("FGS", "FGS+ (1 Thread)", "FGS+ (16 Threads)"))
